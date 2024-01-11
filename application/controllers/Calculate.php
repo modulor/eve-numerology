@@ -8,14 +8,41 @@ class Calculate extends CI_Controller
 
     $souls_desire = $this->calculate_souls_desire($_POST['full_name']);
 
-    $this->print($_POST['day']);
-    $this->print($_POST['month']);
-    $this->print($_POST['year']);
+    $latent_potential = $this->calculate_latent_potencial($_POST['full_name']);
 
+    $personal_expression = $this->compress_number_to_one_digit($souls_desire + $latent_potential);
+
+    $day_compressed = $this->compress_number_to_one_digit($_POST['day']);
+    $month_compressed = $this->compress_number_to_one_digit($_POST['month']);
+    $year_compressed = $this->compress_number_to_one_digit($_POST['year']);
+
+
+    $this->print("Fecha de nacimiento: ".$_POST['day']." - ".$_POST['month']." - ".$_POST['year']);
+
+    $this->print('');
+
+    $this->print('Life Mission:');
     $this->print_pre($life_mission);
 
-    $this->print($_POST['full_name']);
+    $this->print('Día: '.$day_compressed);
+    $this->print('Mes: '.$month_compressed);
+    $this->print('Año: '.$year_compressed);
+
+    $this->print('');
+    $this->print('-----------------------------------------------------------');
+    $this->print('');
+
+    $this->print("Nombre completo: ".$_POST['full_name']);
+    $this->print('');
+    
+    $this->print('Deseo del alma:');
     $this->print_pre($souls_desire);
+    
+    $this->print('Potencial Latente:');
+    $this->print_pre($latent_potential);
+
+    $this->print('Expresión personal:');
+    $this->print_pre($personal_expression);
   }
 
   private function calculate_life_mission($day, $month, $year)
@@ -49,17 +76,6 @@ class Calculate extends CI_Controller
     array_push($result, $sum_4);
 
     return $result;
-    
-    // $summation_array = str_split($sum_1);
-    // $summation_array_sum = array_sum(array_map('intval', $summation_array));
-
-
-    // array_push($summation_array, $summation_array_sum);
-
-    // return $summation_array;
-
-    // x / y / z / w
-    // devolver x / w
   }
 
   private function digit_sum($number) {
@@ -94,8 +110,55 @@ class Calculate extends CI_Controller
       return $sum;
     }
 
-    return 999;
+    return $this->compress_number_to_one_digit($sum);
   }
+
+  private function calculate_latent_potencial($full_name)
+  {
+    $consonant_values = [
+      'J' => 1, 'S' => 1, 'B' => 2, 'K' => 2, 'T' => 2, 'C' => 3, 'L' => 3, 'D' => 4,
+      'M' => 4, 'V' => 4, 'N' => 5, 'Ñ' => 5, 'W' => 5, 'F' => 6, 'X' => 6, 'G' => 7,
+      'P' => 7, 'Y' => 7, 'H' => 8, 'Q' => 8, 'Z' => 8, 'R' => 9
+    ];
+
+    $name_upper_case = strtoupper($full_name);
+    
+    $sum = 0;
+
+    for ($i = 0; $i < strlen($name_upper_case); $i++) {
+      $letter = $name_upper_case[$i];
+      if (array_key_exists($letter, $consonant_values)) {
+        $sum += $consonant_values[$letter];
+      }
+    }
+
+    return $this->compress_number_to_one_digit($sum);
+  }
+  
+  private function compress_number_to_one_digit($number)
+  {
+    $sum_1 = $this->digit_sum($number);
+
+    if($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
+      return $sum_1;
+    }
+
+    $sum_2 = $this->digit_sum($sum_1);
+
+    if($sum_2 == 11 || $sum_2 == 22 || $sum_2 < 10) {
+      return $sum_2;
+    }
+
+    $sum_3 = $this->digit_sum($sum_2);
+
+    if($sum_3 == 11 || $sum_3 == 22 || $sum_3 < 10) {
+      return $sum_3;
+    }
+
+    return $this->digit_sum($sum_3);
+  }
+
+  // ---------------------------------------------------------------------------
 
   private function print($content)
   {
