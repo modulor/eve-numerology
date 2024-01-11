@@ -19,7 +19,7 @@
             <div class="card-body">
               <div class="mb-3">
                 <label for="full_name" class="form-label">Nombre completo</label>
-                <input type="text" class="form-control" id="full_name">
+                <input type="text" class="form-control" name="full_name" id="full_name">
               </div>
               <div class="mb-3">
                 <label for="full_name" class="form-label">Fecha de Nacimiento</label>
