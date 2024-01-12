@@ -4,45 +4,28 @@ class Calculate extends CI_Controller
 {
   public function index()
   {
-    $life_mission = $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']);
-
     $souls_desire = $this->calculate_souls_desire($_POST['full_name']);
-
     $latent_potential = $this->calculate_latent_potencial($_POST['full_name']);
+    $essence_number = $this->compress_number_to_one_digit($_POST['day']);
+    $karma_number = $this->compress_number_to_one_digit($_POST['month']);
+    $past_lives_number = $this->compress_number_to_one_digit($_POST['year']);
+    $karma_number_plus_essence_number = $this->compress_number_to_one_digit($karma_number + $essence_number);
+    $essence_number_plus_past_lives_number = $this->compress_number_to_one_digit($essence_number + $past_lives_number);
 
-    $personal_expression = $this->compress_number_to_one_digit($souls_desire + $latent_potential);
+    $data = array(
+      'life_mission' => $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']),
+      'souls_desire' => $souls_desire,
+      'latent_potential' => $latent_potential,
+      'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
+      'essence_number' => $essence_number,
+      'karma_number' => $karma_number,
+      'past_lives_number' => $past_lives_number,
+      'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
+      'karma_number_plus_essence_number' => $karma_number_plus_essence_number,
+      'essence_number_plus_past_lives_number' => $essence_number_plus_past_lives_number,
+    );
 
-    $day_compressed = $this->compress_number_to_one_digit($_POST['day']);
-    $month_compressed = $this->compress_number_to_one_digit($_POST['month']);
-    $year_compressed = $this->compress_number_to_one_digit($_POST['year']);
-
-
-    $this->print("Fecha de nacimiento: ".$_POST['day']." - ".$_POST['month']." - ".$_POST['year']);
-
-    $this->print('');
-
-    $this->print('Life Mission:');
-    $this->print_pre($life_mission);
-
-    $this->print('Día: '.$day_compressed);
-    $this->print('Mes: '.$month_compressed);
-    $this->print('Año: '.$year_compressed);
-
-    $this->print('');
-    $this->print('-----------------------------------------------------------');
-    $this->print('');
-
-    $this->print("Nombre completo: ".$_POST['full_name']);
-    $this->print('');
-    
-    $this->print('Deseo del alma:');
-    $this->print_pre($souls_desire);
-    
-    $this->print('Potencial Latente:');
-    $this->print_pre($latent_potential);
-
-    $this->print('Expresión personal:');
-    $this->print_pre($personal_expression);
+    $this->load->view('calculate/calculate_index_view', $data);
   }
 
   private function calculate_life_mission($day, $month, $year)
@@ -137,6 +120,10 @@ class Calculate extends CI_Controller
   
   private function compress_number_to_one_digit($number)
   {
+    if($number == 11 || $number == 22 || $number < 10) {
+      return $number;
+    }
+
     $sum_1 = $this->digit_sum($number);
 
     if($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
