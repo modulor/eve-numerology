@@ -24,6 +24,7 @@ class Calculate extends CI_Controller
       'karma_and_essence' => $karma_and_essence,
       'essence_and_past_lives' => $essence_and_past_lives,
       'karma_essence_and_essence_past_lives' => $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives),
+      'karma_and_past_lives' => $this->compress_number_to_one_digit($karma_number + $past_lives_number),
     );
 
     $this->load->view('calculate/calculate_index_view', $data);
