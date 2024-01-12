@@ -11,7 +11,9 @@ class Calculate extends CI_Controller
     $past_lives_number = $this->compress_number_to_one_digit($_POST['year']);
     $karma_and_essence = $this->compress_number_to_one_digit($karma_number + $essence_number);
     $essence_and_past_lives = $this->compress_number_to_one_digit($essence_number + $past_lives_number);
-
+    $karma_essence_and_essence_past_lives = $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives);
+    $karma_essence_past_lives_combination = $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives + $karma_essence_and_essence_past_lives);
+  
     $data = array(
       'life_mission' => $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']),
       'souls_desire' => $souls_desire,
@@ -23,8 +25,9 @@ class Calculate extends CI_Controller
       'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
       'karma_and_essence' => $karma_and_essence,
       'essence_and_past_lives' => $essence_and_past_lives,
-      'karma_essence_and_essence_past_lives' => $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives),
+      'karma_essence_and_essence_past_lives' => $karma_essence_and_essence_past_lives,
       'karma_and_past_lives' => $this->compress_number_to_one_digit($karma_number + $past_lives_number),
+      'karma_essence_past_lives_combination' => $karma_essence_past_lives_combination,
     );
 
     $this->load->view('calculate/calculate_index_view', $data);

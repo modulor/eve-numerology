@@ -61,7 +61,9 @@
               <div class="col-1 text-center">
                 <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_and_essence ?></span></h5>
               </div>
-              <div class="col-1"></div>
+              <div class="col-1 text-center">
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_essence_past_lives_combination ?></span></h5>
+              </div>
               <div class="col-1 text-center">
                 <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $essence_and_past_lives ?></span></h5>
               </div>
