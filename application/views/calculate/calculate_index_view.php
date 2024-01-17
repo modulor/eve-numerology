@@ -110,7 +110,13 @@
                   </span>
                 </h5>
               </div>
-              <div class="col-1"></div>
+              <div class="col-1 text-center">
+                <h5>
+                  <span class="badge text-bg-secondary rounded-circle">
+                    <?php echo $c2 ?>
+                  </span>
+                </h5>
+              </div>
               <div class="col-1 text-center">
                 <h5>
                   <span class="badge text-bg-secondary rounded-circle">
