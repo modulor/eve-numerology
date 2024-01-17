@@ -92,10 +92,10 @@
                 <h5><span class="badge text-bg-info rounded-circle"><?php echo $past_lives_number ?></span>  </h5>
               </div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
               <div class="col-1 text-center">
                 <h5><span class="badge text-bg-danger rounded-circle"><?php echo $life_mission[sizeof($life_mission)-1] ?></span>  </h5>
               </div>
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
             </div>
