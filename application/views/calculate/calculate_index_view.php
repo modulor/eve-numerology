@@ -22,8 +22,8 @@
 
         <div class="card mb-4">
           <div class="card-body pt-5 pb-5">
-            <p>(colorear círculos dependiendo de etapa)</p>
             <div class="row mb-4">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -37,9 +37,9 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
             <div class="row mb-4">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -55,9 +55,9 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
             <div class="row mb-4">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -75,9 +75,9 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
             <div class="row mb-4">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1 text-center">
@@ -97,9 +97,9 @@
               </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
             <div class="row mb-4">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -129,11 +129,17 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
             <div class="row mb-4">
               <div class="col-1"></div>
               <div class="col-1"></div>
+              <div class="col-1 text-center">
+                <h5>
+                  <span class="badge text-bg-secondary rounded-circle">
+                    <?php echo $subconscious_negative ?>
+                  </span>
+                </h5>
+              </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1 text-center">
@@ -149,9 +155,9 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
             </div>
-            <div class="row mb-4">
+            <div class="row">
+              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -163,7 +169,6 @@
                   </span>
                 </h5>
               </div>
-              <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>

@@ -27,6 +27,7 @@ class Calculate extends CI_Controller
     $d1 = $this->calculate_subtraction($c3, $c1);
     $e1 = $this->calculate_subtraction($karma_number, $past_lives_number);
     $c2 = $this->compress_number_to_one_digit($c1 + $c3 + $d1);
+    $subconscious_negative = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission)-1] + $c2);
   
     $data = array(
       'souls_desire' => $souls_desire,
@@ -48,6 +49,7 @@ class Calculate extends CI_Controller
       'd1' => $d1,
       'e1' => $e1,
       'c2' => $c2,
+      'subconscious_negative' => $subconscious_negative,
       
       'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
       'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
