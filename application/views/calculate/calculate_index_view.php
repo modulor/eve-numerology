@@ -125,7 +125,6 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
             </div>
-
             <div class="row mb-4">
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -135,6 +134,26 @@
                 <h5>
                   <span class="badge text-bg-secondary rounded-circle">
                     <?php echo $d1 ?>
+                  </span>
+                </h5>
+              </div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1"></div>
+              <div class="col-1 text-center">
+                <h5>
+                  <span class="badge text-bg-secondary rounded-circle">
+                    <?php echo $e1 ?>
                   </span>
                 </h5>
               </div>

@@ -22,9 +22,10 @@ class Calculate extends CI_Controller
 
     // negatives
 
-    $c1 = $this->calculate_c($essence_number, $karma_number);
-    $c3 = $this->calculate_c($essence_number, $past_lives_number);
-    $d1 = $this->calculate_c($c3, $c1);
+    $c1 = $this->calculate_subtraction($essence_number, $karma_number);
+    $c3 = $this->calculate_subtraction($essence_number, $past_lives_number);
+    $d1 = $this->calculate_subtraction($c3, $c1);
+    $e1 = $this->calculate_subtraction($karma_number, $past_lives_number);
   
     $data = array(
       'souls_desire' => $souls_desire,
@@ -44,6 +45,7 @@ class Calculate extends CI_Controller
       'c1' => $c1,
       'c3' => $c3,
       'd1' => $d1,
+      'e1' => $e1,
       
       'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
       'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
@@ -170,7 +172,7 @@ class Calculate extends CI_Controller
     return $this->digit_sum($sum_3);
   }
 
-  private function calculate_c($n1, $n2)
+  private function calculate_subtraction($n1, $n2)
   {
     if($n1 == 11 || $n1 == 22) {
       $n1 = $this->digit_sum($n1);
