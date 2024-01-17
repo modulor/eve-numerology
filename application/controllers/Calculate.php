@@ -22,7 +22,8 @@ class Calculate extends CI_Controller
 
     // negatives
 
-    $c1 = $this->calculate_c1($karma_number, $essence_number);
+    $c1 = $this->calculate_c($essence_number, $karma_number);
+    $c3 = $this->calculate_c($essence_number, $past_lives_number);
   
     $data = array(
       'souls_desire' => $souls_desire,
@@ -40,6 +41,7 @@ class Calculate extends CI_Controller
       'subconscious_positive' => $subconscious_positive,
 
       'c1' => $c1,
+      'c3' => $c3,
       
       'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
       'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
@@ -166,21 +168,21 @@ class Calculate extends CI_Controller
     return $this->digit_sum($sum_3);
   }
 
-  private function calculate_c1($karma_number, $essence_number)
+  private function calculate_c($n1, $n2)
   {
-    if($karma_number == 11 || $karma_number == 22) {
-      $karma_number = $this->digit_sum($karma_number);
+    if($n1 == 11 || $n1 == 22) {
+      $n1 = $this->digit_sum($n1);
     }
 
-    if($essence_number == 11 || $essence_number == 22) {
-      $essence_number = $this->digit_sum($essence_number);
+    if($n2 == 11 || $n2 == 22) {
+      $n2 = $this->digit_sum($n2);
     }
 
-    if($karma_number > $essence_number) {
-      return $this->compress_number_to_one_digit($karma_number - $essence_number);
+    if($n1 > $n2) {
+      return $this->compress_number_to_one_digit($n1 - $n2);
     }
 
-    return $this->compress_number_to_one_digit($essence_number - $karma_number);
+    return $this->compress_number_to_one_digit($n2 - $n1);
   }
 
   // ---------------------------------------------------------------------------

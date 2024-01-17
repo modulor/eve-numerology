@@ -111,7 +111,13 @@
                 </h5>
               </div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
+              <div class="col-1">
+                <h5>
+                  <span class="badge text-bg-secondary rounded-circle">
+                    <?php echo $c3 ?>
+                  </span>
+                </h5>
+              </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
