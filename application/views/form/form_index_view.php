@@ -24,46 +24,13 @@
                 <label for="full_name" class="form-label">Fecha de Nacimiento</label>
                 <div class="row">
                   <div class="col-4">
-                    <select name="day" id="day" class="form-control">
-                      <option disabled selected>Día</option>
-                      <?php
-                        for($i = 1; $i < 32; $i++):
-                      ?>
-                      <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                      </option>
-                      <?php
-                        endfor;
-                      ?>
-                    </select>
+                    <input type="text" name="day" class="form-control" placeholder="Día">
                   </div>
                   <div class="col-4">
-                    <select name="month" id="month" class="form-control">
-                      <option disabled selected>Mes</option>
-                      <?php
-                        for($i = 1; $i < 13; $i++):
-                      ?>
-                      <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                      </option>
-                      <?php
-                        endfor;
-                      ?>
-                    </select>
+                    <input type="text" name="month" class="form-control" placeholder="Mes">
                   </div>
                   <div class="col-4">
-                    <select name="year" id="year" class="form-control">
-                      <option disabled selected>Año</option>
-                      <?php
-                        for($i = date('Y'); $i > 1899; $i-- ):
-                      ?>
-                      <option value="<?php echo $i; ?>">
-                        <?php echo $i; ?>
-                      </option>
-                      <?php
-                        endfor;
-                      ?>
-                    </select>
+                    <input type="text" name="year" class="form-control" placeholder="Año">
                   </div>
                 </div>
               </div>

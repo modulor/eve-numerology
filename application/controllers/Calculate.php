@@ -6,29 +6,38 @@ class Calculate extends CI_Controller
   {
     $souls_desire = $this->calculate_souls_desire($_POST['full_name']);
     $latent_potential = $this->calculate_latent_potencial($_POST['full_name']);
+
     $essence_number = $this->compress_number_to_one_digit($_POST['day']);
     $karma_number = $this->compress_number_to_one_digit($_POST['month']);
     $past_lives_number = $this->compress_number_to_one_digit($_POST['year']);
-    $karma_and_essence = $this->compress_number_to_one_digit($karma_number + $essence_number);
-    $essence_and_past_lives = $this->compress_number_to_one_digit($essence_number + $past_lives_number);
-    $karma_essence_and_essence_past_lives = $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives);
-    $karma_essence_past_lives_combination = $this->compress_number_to_one_digit($karma_and_essence + $essence_and_past_lives + $karma_essence_and_essence_past_lives);
+
+    $life_mission = $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']);
+
+    $b1 = $this->compress_number_to_one_digit($karma_number + $essence_number);
+    $b3 = $this->compress_number_to_one_digit($essence_number + $past_lives_number);
+    $a1 = $this->compress_number_to_one_digit($b1 + $b3);
+    $b2 = $this->compress_number_to_one_digit($b1 + $b3 + $a1);
+    $destiny = $this->compress_number_to_one_digit($karma_number + $past_lives_number);
+    $subconscious_positive = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission)-1] + $destiny);
   
     $data = array(
-      'life_mission' => $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']),
       'souls_desire' => $souls_desire,
       'latent_potential' => $latent_potential,
-      'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
+
       'essence_number' => $essence_number,
       'karma_number' => $karma_number,
       'past_lives_number' => $past_lives_number,
+      'b1' => $b1,
+      'b2' => $b2,
+      'b3' => $b3,
+      'a1' => $a1,
+      'life_mission' => $life_mission,
+      'destiny' => $destiny,
+      'subconscious_positive' => $subconscious_positive,
+      
+      'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
       'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
-      'karma_and_essence' => $karma_and_essence,
-      'essence_and_past_lives' => $essence_and_past_lives,
-      'karma_essence_and_essence_past_lives' => $karma_essence_and_essence_past_lives,
-      'karma_and_past_lives' => $this->compress_number_to_one_digit($karma_number + $past_lives_number),
-      'karma_essence_past_lives_combination' => $karma_essence_past_lives_combination,
-      'm_d' => 'hola',
+      
     );
 
     $this->load->view('calculate/calculate_index_view', $data);

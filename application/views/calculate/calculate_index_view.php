@@ -13,7 +13,6 @@
       <div class="col-md-8 offset-md-2">
         <div class="card mb-4">
           <div class="card-body">
-            <?php echo $m_d ?>
             <p class="mb-0 text-muted"><strong>Nombre completo:</strong></p>
             <h3><?php echo $_POST['full_name'] ?></h3>
             <p class="mb-0 text-muted"><strong>Fecha de nacimiento:</strong></p>
@@ -30,7 +29,7 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1 text-center">
-                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_and_past_lives ?></span></h5>
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $destiny ?></span></h5>
               </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -46,11 +45,13 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1 text-center">
-                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_essence_and_essence_past_lives ?></span></h5>
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $a1 ?></span></h5>
               </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
-              <div class="col-1"></div>
+              <div class="col-1">
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $subconscious_positive ?></span></h5>
+              </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1"></div>
@@ -61,13 +62,13 @@
               <div class="col-1"></div>
               <div class="col-1"></div>
               <div class="col-1 text-center">
-                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_and_essence ?></span></h5>
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $b1 ?></span></h5>
               </div>
               <div class="col-1 text-center">
-                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $karma_essence_past_lives_combination ?></span></h5>
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $b2 ?></span></h5>
               </div>
               <div class="col-1 text-center">
-                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $essence_and_past_lives ?></span></h5>
+                <h5><span class="badge text-bg-secondary rounded-circle"><?php echo $b3 ?></span></h5>
               </div>
               <div class="col-1"></div>
               <div class="col-1"></div>
