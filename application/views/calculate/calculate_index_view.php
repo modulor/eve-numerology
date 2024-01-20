@@ -15,8 +15,61 @@
           <div class="card-body">
             <p class="mb-0 text-muted"><strong>Nombre completo:</strong></p>
             <h3><?php echo $_POST['full_name'] ?></h3>
+            <table class="table table-bordered">
+              <tr>
+                <td>Deseo del Alma</td>
+                <td><?php echo $souls_desire ?></td>
+              </tr>
+              <tr>
+                <td>Potencial Latente</td>
+                <td><?php echo $latent_potential ?></td>
+              </tr>
+              <tr>
+                <td>Expresión Personal</td>
+                <td><?php echo $personal_expression ?></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
             <p class="mb-0 text-muted"><strong>Fecha de nacimiento:</strong></p>
-            <h3 class="mb-0"><?php echo $_POST['day']."-".$_POST['month']."-".$_POST['year'] ?></h3>
+            <h3><?php echo $_POST['day']."-".$_POST['month']."-".$_POST['year'] ?></h3>
+            <table class="table table-bordered">
+              <tr>
+                <td>Esencia</td>
+                <td><?php echo $essence_number ?></td>
+              </tr>
+              <tr>
+                <td>Personalidad Kármica</td>
+                <td><?php echo $karma_number ?></td>
+              </tr>
+              <tr>
+                <td>Vidas Pasadas</td>
+                <td><?php echo $past_lives_number ?></td>
+              </tr>
+              <tr>
+                <td>Regalo Divino</td>
+                <td><?php echo $gifts_number ?></td>
+              </tr>
+              <tr>
+                <td>Misión de Vida</td>
+                <td>
+                  <?php  
+                    if(sizeof($life_mission) > 2){
+                      echo $life_mission[0].$life_mission[1]."/".$life_mission[2];
+                    } else {
+                      echo $life_mission[0];
+                    }
+                  ?>
+                </td>
+              </tr>
+              <tr>
+                <td>Año Personal</td>
+                <td><?php echo $personal_year ?></td>
+              </tr>
+            </table>
           </div>
         </div>
 
