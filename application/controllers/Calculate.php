@@ -14,6 +14,7 @@ class Calculate extends CI_Controller
     $karma_number = $this->compress_number_to_one_digit($_POST['month']);
     $past_lives_number = $this->compress_number_to_one_digit($_POST['year']);
     $life_mission = $this->calculate_life_mission($_POST['day'], $_POST['month'], $_POST['year']);
+    $life_mission_number = $this->calculate_life_mission_number($life_mission);
     $b1 = $this->compress_number_to_one_digit($karma_number + $essence_number);
     $b3 = $this->compress_number_to_one_digit($essence_number + $past_lives_number);
     $a1 = $this->compress_number_to_one_digit($b1 + $b3);
@@ -40,6 +41,19 @@ class Calculate extends CI_Controller
     $souls_desire_text = $this->Name_numbers_model->get_souls_desire_by_number($souls_desire);
     $latent_potential_text = $this->Name_numbers_model->get_latent_potential_by_number($latent_potential);
     $personal_expression_text = $this->Name_numbers_model->get_personal_expression_by_number($personal_expression);
+    $gifts_number = $this->compress_number_to_one_digit(substr($_POST['year'], -2));
+
+    $this->load->model('Birthdate_numbers_model');
+
+    $essence_number_text = $this->Birthdate_numbers_model->get_essence_by_number($essence_number);
+    $karma_number_text = $this->Birthdate_numbers_model->get_karma_by_number($karma_number);
+    $past_lives_number_text = $this->Birthdate_numbers_model->get_past_lives_by_number($past_lives_number);
+    $gifts_number_text = $this->Birthdate_numbers_model->get_gift_by_number($gifts_number);
+    $life_mission_text = $this->Birthdate_numbers_model->get_life_mission_by_number($life_mission_number);
+
+    $this->load->model('Personal_year_model');
+
+    $personal_year_text = $this->Personal_year_model->get_by_year('year_' . $personal_year);
 
     $data = array(
       'souls_desire' => $souls_desire,
@@ -53,6 +67,7 @@ class Calculate extends CI_Controller
       'b3' => $b3,
       'a1' => $a1,
       'life_mission' => $life_mission,
+      'life_mission_number' => $life_mission_number,
       'destiny' => $destiny,
       'subconscious_positive' => $subconscious_positive,
 
@@ -64,12 +79,18 @@ class Calculate extends CI_Controller
       'subconscious_negative' => $subconscious_negative,
 
       'personal_expression' => $personal_expression,
-      'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'], -2)),
+      'gifts_number' => $gifts_number,
       'personal_year' => $personal_year,
 
       'souls_desire_text' => $souls_desire_text,
       'latent_potential_text' => $latent_potential_text,
       'personal_expression_text' => $personal_expression_text,
+      'essence_number_text' => $essence_number_text,
+      'karma_number_text' => $karma_number_text,
+      'past_lives_number_text' => $past_lives_number_text,
+      'gifts_number_text' => $gifts_number_text,
+      'life_mission_text' => $life_mission_text,
+      'personal_year_text' => $personal_year_text,
 
       'today' => $this->formatDateInSpanish(date('Y-m-d')),
     );
@@ -262,6 +283,15 @@ class Calculate extends CI_Controller
 
     // Retornar la fecha formateada
     return "$dayOfWeek, $day de $month de $year";
+  }
+
+  private function calculate_life_mission_number($life_mission)
+  {
+    if (sizeof($life_mission) > 2) {
+      return $life_mission[2];
+    }
+
+    return $life_mission[0];
   }
 
   // ---------------------------------------------------------------------------
