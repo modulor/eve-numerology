@@ -70,6 +70,8 @@ class Calculate extends CI_Controller
       'souls_desire_text' => $souls_desire_text,
       'latent_potential_text' => $latent_potential_text,
       'personal_expression_text' => $personal_expression_text,
+
+      'today' => $this->formatDateInSpanish(date('Y-m-d')),
     );
 
     $this->load->view('calculate/calculate_index_view', $data);
@@ -227,6 +229,39 @@ class Calculate extends CI_Controller
     }
 
     return $this->compress_number_to_one_digit($n2 - $n1);
+  }
+
+  private function formatDateInSpanish($date)
+  {
+    // Arrays con los nombres en español
+    $days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    $months = [
+      "",
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre"
+    ];
+
+    // Crear objeto DateTime
+    $dateObj = new DateTime($date);
+
+    // Obtener los componentes
+    $dayOfWeek = $days[(int)$dateObj->format('w')]; // 0 (domingo) a 6 (sábado)
+    $day = $dateObj->format('d');                  // Día del mes con ceros
+    $month = $months[(int)$dateObj->format('n')];  // 1 a 12
+    $year = $dateObj->format('Y');                 // Año completo
+
+    // Retornar la fecha formateada
+    return "$dayOfWeek, $day de $month de $year";
   }
 
   // ---------------------------------------------------------------------------

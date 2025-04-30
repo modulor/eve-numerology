@@ -15,6 +15,7 @@
       <div class="col-md-8 offset-md-2">
         <div class="card mb-4">
           <div class="card-body">
+            <p class="text-end"><?php echo $today ?></p>
             <p class="mb-0 text-muted"><strong>Nombre completo:</strong></p>
             <h3><?php echo $_POST['full_name'] ?></h3>
             <p>En Numerología nos basamos en leer las vibraciones positivas y negativas de los números de nuestro nombre completo y fecha de nacimiento. Los número nos brindan la información necesaria para poder interpretar y poder tomar mejores decisiones para nuestra vida.</p>
