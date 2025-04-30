@@ -6,6 +6,7 @@ class Calculate extends CI_Controller
   {
     $souls_desire = $this->calculate_souls_desire($_POST['full_name']);
     $latent_potential = $this->calculate_latent_potencial($_POST['full_name']);
+    $personal_expression = $this->compress_number_to_one_digit($souls_desire + $latent_potential);
 
     // positives
 
@@ -18,7 +19,7 @@ class Calculate extends CI_Controller
     $a1 = $this->compress_number_to_one_digit($b1 + $b3);
     $b2 = $this->compress_number_to_one_digit($b1 + $b3 + $a1);
     $destiny = $this->compress_number_to_one_digit($karma_number + $past_lives_number);
-    $subconscious_positive = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission)-1] + $destiny);
+    $subconscious_positive = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission) - 1] + $destiny);
 
     // negatives
 
@@ -27,11 +28,19 @@ class Calculate extends CI_Controller
     $d1 = $this->calculate_subtraction($c3, $c1);
     $e1 = $this->calculate_subtraction($karma_number, $past_lives_number);
     $c2 = $this->compress_number_to_one_digit($c1 + $c3 + $d1);
-    $subconscious_negative = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission)-1] + $c2);
+    $subconscious_negative = $this->compress_number_to_one_digit($life_mission[sizeof($life_mission) - 1] + $c2);
 
     $current_year = date('Y');
-    $personal_year = $this->compress_number_to_one_digit($_POST['day'].$_POST['month'].$current_year);
-  
+    $personal_year = $this->compress_number_to_one_digit($_POST['day'] . $_POST['month'] . $current_year);
+
+    // texts
+
+    $this->load->model('Name_numbers_model');
+
+    $souls_desire_text = $this->Name_numbers_model->get_souls_desire_by_number($souls_desire);
+    $latent_potential_text = $this->Name_numbers_model->get_latent_potential_by_number($latent_potential);
+    $personal_expression_text = $this->Name_numbers_model->get_personal_expression_by_number($personal_expression);
+
     $data = array(
       'souls_desire' => $souls_desire,
       'latent_potential' => $latent_potential,
@@ -53,10 +62,14 @@ class Calculate extends CI_Controller
       'e1' => $e1,
       'c2' => $c2,
       'subconscious_negative' => $subconscious_negative,
-      
-      'personal_expression' => $this->compress_number_to_one_digit($souls_desire + $latent_potential),
-      'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'],-2)),
+
+      'personal_expression' => $personal_expression,
+      'gifts_number' => $this->compress_number_to_one_digit(substr($_POST['year'], -2)),
       'personal_year' => $personal_year,
+
+      'souls_desire_text' => $souls_desire_text,
+      'latent_potential_text' => $latent_potential_text,
+      'personal_expression_text' => $personal_expression_text,
     );
 
     $this->load->view('calculate/calculate_index_view', $data);
@@ -66,7 +79,7 @@ class Calculate extends CI_Controller
   {
     $sum_1 = $this->digit_sum($day . $month . $year);
 
-    if($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
+    if ($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
       return array($sum_1);
     }
 
@@ -74,7 +87,7 @@ class Calculate extends CI_Controller
 
     $sum_2 = $this->digit_sum($sum_1);
 
-    if($sum_2 == 11 || $sum_2 == 22 || $sum_2 < 10) {
+    if ($sum_2 == 11 || $sum_2 == 22 || $sum_2 < 10) {
       array_push($result, $sum_2);
 
       return $result;
@@ -82,7 +95,7 @@ class Calculate extends CI_Controller
 
     $sum_3 = $this->digit_sum($sum_2);
 
-    if($sum_3 == 11 || $sum_3 == 22 || $sum_3 < 10) {
+    if ($sum_3 == 11 || $sum_3 == 22 || $sum_3 < 10) {
       array_push($result, $sum_3);
 
       return $result;
@@ -95,7 +108,8 @@ class Calculate extends CI_Controller
     return $result;
   }
 
-  private function digit_sum($number) {
+  private function digit_sum($number)
+  {
     $numberAsString = (string) $number;
     $digits = str_split($numberAsString);
     $sum = array_sum(array_map('intval', $digits));
@@ -115,7 +129,7 @@ class Calculate extends CI_Controller
 
     $lowerCaseName = strtolower($full_name);
     $sum = 0;
-    
+
     for ($i = 0; $i < strlen($lowerCaseName); $i++) {
       $letter = $lowerCaseName[$i];
       if (array_key_exists($letter, $vowelValues)) {
@@ -123,7 +137,7 @@ class Calculate extends CI_Controller
       }
     }
 
-    if($sum == 11 || $sum == 22 || $sum < 10) {
+    if ($sum == 11 || $sum == 22 || $sum < 10) {
       return $sum;
     }
 
@@ -133,13 +147,32 @@ class Calculate extends CI_Controller
   private function calculate_latent_potencial($full_name)
   {
     $consonant_values = [
-      'J' => 1, 'S' => 1, 'B' => 2, 'K' => 2, 'T' => 2, 'C' => 3, 'L' => 3, 'D' => 4,
-      'M' => 4, 'V' => 4, 'N' => 5, 'Ñ' => 5, 'W' => 5, 'F' => 6, 'X' => 6, 'G' => 7,
-      'P' => 7, 'Y' => 7, 'H' => 8, 'Q' => 8, 'Z' => 8, 'R' => 9
+      'J' => 1,
+      'S' => 1,
+      'B' => 2,
+      'K' => 2,
+      'T' => 2,
+      'C' => 3,
+      'L' => 3,
+      'D' => 4,
+      'M' => 4,
+      'V' => 4,
+      'N' => 5,
+      'Ñ' => 5,
+      'W' => 5,
+      'F' => 6,
+      'X' => 6,
+      'G' => 7,
+      'P' => 7,
+      'Y' => 7,
+      'H' => 8,
+      'Q' => 8,
+      'Z' => 8,
+      'R' => 9
     ];
 
     $name_upper_case = strtoupper($full_name);
-    
+
     $sum = 0;
 
     for ($i = 0; $i < strlen($name_upper_case); $i++) {
@@ -151,28 +184,28 @@ class Calculate extends CI_Controller
 
     return $this->compress_number_to_one_digit($sum);
   }
-  
+
   private function compress_number_to_one_digit($number)
   {
-    if($number == 11 || $number == 22 || $number < 10 ) {
+    if ($number == 11 || $number == 22 || $number < 10) {
       return $number;
     }
 
     $sum_1 = $this->digit_sum($number);
 
-    if($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
+    if ($sum_1 == 11 || $sum_1 == 22 || $sum_1 < 10) {
       return $sum_1;
     }
 
     $sum_2 = $this->digit_sum($sum_1);
 
-    if($sum_2 == 11 || $sum_2 == 22 || $sum_2 < 10) {
+    if ($sum_2 == 11 || $sum_2 == 22 || $sum_2 < 10) {
       return $sum_2;
     }
 
     $sum_3 = $this->digit_sum($sum_2);
 
-    if($sum_3 == 11 || $sum_3 == 22 || $sum_3 < 10) {
+    if ($sum_3 == 11 || $sum_3 == 22 || $sum_3 < 10) {
       return $sum_3;
     }
 
@@ -181,15 +214,15 @@ class Calculate extends CI_Controller
 
   private function calculate_subtraction($n1, $n2)
   {
-    if($n1 == 11 || $n1 == 22) {
+    if ($n1 == 11 || $n1 == 22) {
       $n1 = $this->digit_sum($n1);
     }
 
-    if($n2 == 11 || $n2 == 22) {
+    if ($n2 == 11 || $n2 == 22) {
       $n2 = $this->digit_sum($n2);
     }
 
-    if($n1 > $n2) {
+    if ($n1 > $n2) {
       return $this->compress_number_to_one_digit($n1 - $n2);
     }
 
@@ -200,7 +233,7 @@ class Calculate extends CI_Controller
 
   private function print($content)
   {
-    echo $content."<br>";
+    echo $content . "<br>";
   }
 
   private function print_pre($content)
